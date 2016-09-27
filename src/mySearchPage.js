@@ -2,56 +2,47 @@
 import React, { Component, PropTypes } from 'react'
 import SearchBar from './mySearchBar';
 import ResultsList from './myResultsList';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as searchActions from './actions/actionSearch';
 
-export default class SearchPage extends Component {
+class SearchPage extends Component {
       constructor(props) {
         super(props)
-        this.state = {results: [],loading:false};
+      //  this.state = {results: []};
+
+        console.log('THIS state: ',this.state)
       }
 
-      loadResults(query){
-        if(query==''){
-          this.setState({
-            loading: false, 
-            results:[]
-          });
-          return;
-          
-        }
-        
-        this.setState({loading:true});
-        var results = [];
-        
-        var url = "https://api.github.com/search/repositories?q="+query+"+language:typescript&sort=stars&order=desc";
-        fetch(url)
-        .then(function(response) { 
-	        // Convert to JSON
-	        return response.json();
-        })
-        .then(function (result) {
-            if(result.items.length!==0){ 
-               results =result.items.slice(0,5);
-            }else{
-               results = []
-            }
-            this.setState({loading: false, results:results});
-        }.bind(this));//<-- important to bind this for use "setState"
-        
-      }
 
       handleSearchTextChange(txt) {
-
-        this.loadResults(txt)
-       
+        this.props.loadResults(txt);//<---HERE      
       }
 
       render() {
+        const {results, loading} = this.props;
+       
         return (
           <div>
             <SearchBar onChange={this.handleSearchTextChange.bind(this)}/>
-            <ResultsList results={this.state.results}  loading={this.state.loading}/>
+            <ResultsList results={results} loading={loading}/>
           </div>
         );
       }
 };
     
+
+function mapStateToProps(state, ownProps) {
+  return {
+    results: state.results,
+    loading: state.loading
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loadResults: bindActionCreators(searchActions.loadResults, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);    

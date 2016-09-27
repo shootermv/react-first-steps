@@ -13,7 +13,7 @@ export default class ResultsList extends Component {
           var list;
           if(this.props.results && this.props.results.length && !this.props.loading) {
             list = this.props.results.map(createItem);
-          } else if(this.props.results.length==0  && !this.props.loading){
+          } else if(this.props.results && this.props.results.length==0  && !this.props.loading){
             list = 'no items yet';
           } else if(this.props.loading) {
             list = <div className="loader">Loading...</div>;
