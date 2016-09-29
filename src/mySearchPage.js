@@ -9,11 +9,7 @@ import * as searchActions from './actions/actionSearch';
 class SearchPage extends Component {
       constructor(props) {
         super(props)
-      //  this.state = {results: []};
-
-        console.log('THIS state: ',this.state)
       }
-
 
       handleSearchTextChange(txt) {
         this.props.loadResults(txt);//<---HERE      
