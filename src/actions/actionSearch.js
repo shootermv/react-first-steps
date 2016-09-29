@@ -1,12 +1,8 @@
+import {loadingFinished, loadingStarted} from './actionLoading'
 export function loadResultsSuccess(results) {
   return { type: 'LOAD_RESULTS_SUCCESS', results};
 }
-export function loadingStarted(){
-  return { type: 'LOADING_STARTED', loading: true }; 
-}
-export function loadingFinished(){
-  return { type: 'LOADING_FINISHED', loading: false }; 
-}
+
 export function loadResults(query) {
   return function(dispatch) {
      let url = "https://api.github.com/search/repositories?q="+query+"+language:typescript&sort=stars&order=desc";

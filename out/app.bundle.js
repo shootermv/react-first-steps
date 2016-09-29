@@ -62,11 +62,11 @@
 
 	var _mySearchPage2 = _interopRequireDefault(_mySearchPage);
 
-	var _myRepo = __webpack_require__(554);
+	var _myRepo = __webpack_require__(555);
 
 	var _myRepo2 = _interopRequireDefault(_myRepo);
 
-	var _configureStore = __webpack_require__(555);
+	var _configureStore = __webpack_require__(556);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
@@ -36604,6 +36604,44 @@
 
 /***/ },
 /* 553 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+	exports.loadResultsSuccess = loadResultsSuccess;
+	exports.loadResults = loadResults;
+
+	var _actionLoading = __webpack_require__(554);
+
+	function loadResultsSuccess(results) {
+	   return { type: 'LOAD_RESULTS_SUCCESS', results: results };
+	}
+
+	function loadResults(query) {
+	   return function (dispatch) {
+	      var url = "https://api.github.com/search/repositories?q=" + query + "+language:typescript&sort=stars&order=desc";
+	      dispatch((0, _actionLoading.loadingStarted)());
+	      return fetch(url).then(function (response) {
+	         return response.json();
+	      }).then(function (result) {
+	         dispatch((0, _actionLoading.loadingFinished)());
+	         var results = void 0;
+	         if (result.items.length !== 0) {
+	            results = result.items.slice(0, 5);
+	         } else {
+	            results = [];
+	         }
+	         //DISPATCH RESULTS
+	         dispatch(loadResultsSuccess(results));
+	      });
+	   };
+	}
+
+/***/ },
+/* 554 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36611,41 +36649,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.loadResultsSuccess = loadResultsSuccess;
 	exports.loadingStarted = loadingStarted;
 	exports.loadingFinished = loadingFinished;
-	exports.loadResults = loadResults;
-	function loadResultsSuccess(results) {
-	  return { type: 'LOAD_RESULTS_SUCCESS', results: results };
-	}
 	function loadingStarted() {
 	  return { type: 'LOADING_STARTED', loading: true };
 	}
 	function loadingFinished() {
 	  return { type: 'LOADING_FINISHED', loading: false };
 	}
-	function loadResults(query) {
-	  return function (dispatch) {
-	    var url = "https://api.github.com/search/repositories?q=" + query + "+language:typescript&sort=stars&order=desc";
-	    dispatch(loadingStarted());
-	    return fetch(url).then(function (response) {
-	      return response.json();
-	    }).then(function (result) {
-	      dispatch(loadingFinished());
-	      var results = void 0;
-	      if (result.items.length !== 0) {
-	        results = result.items.slice(0, 5);
-	      } else {
-	        results = [];
-	      }
-	      //DISPATCH RESULTS
-	      dispatch(loadResultsSuccess(results));
-	    });
-	  };
-	}
 
 /***/ },
-/* 554 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36720,7 +36734,7 @@
 	exports.default = myRepo;
 
 /***/ },
-/* 555 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36732,15 +36746,15 @@
 
 	var _redux = __webpack_require__(536);
 
-	var _reducers = __webpack_require__(556);
+	var _reducers = __webpack_require__(557);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _reduxImmutableStateInvariant = __webpack_require__(560);
+	var _reduxImmutableStateInvariant = __webpack_require__(561);
 
 	var _reduxImmutableStateInvariant2 = _interopRequireDefault(_reduxImmutableStateInvariant);
 
-	var _reduxThunk = __webpack_require__(564);
+	var _reduxThunk = __webpack_require__(565);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -36751,7 +36765,7 @@
 	}
 
 /***/ },
-/* 556 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36762,11 +36776,11 @@
 
 	var _redux = __webpack_require__(536);
 
-	var _searchReducer = __webpack_require__(557);
+	var _searchReducer = __webpack_require__(558);
 
 	var _searchReducer2 = _interopRequireDefault(_searchReducer);
 
-	var _loadingReducer = __webpack_require__(559);
+	var _loadingReducer = __webpack_require__(560);
 
 	var _loadingReducer2 = _interopRequireDefault(_loadingReducer);
 
@@ -36780,7 +36794,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 557 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36790,7 +36804,7 @@
 	});
 	exports.default = searchReducer;
 
-	var _initialState = __webpack_require__(558);
+	var _initialState = __webpack_require__(559);
 
 	var _initialState2 = _interopRequireDefault(_initialState);
 
@@ -36810,7 +36824,7 @@
 	}
 
 /***/ },
-/* 558 */
+/* 559 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -36824,7 +36838,7 @@
 	};
 
 /***/ },
-/* 559 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36834,7 +36848,7 @@
 	});
 	exports.default = searchReducer;
 
-	var _initialState = __webpack_require__(558);
+	var _initialState = __webpack_require__(559);
 
 	var _initialState2 = _interopRequireDefault(_initialState);
 
@@ -36855,7 +36869,7 @@
 	}
 
 /***/ },
-/* 560 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36871,15 +36885,15 @@
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
-	var _jsonStringifySafe = __webpack_require__(561);
+	var _jsonStringifySafe = __webpack_require__(562);
 
 	var _jsonStringifySafe2 = _interopRequireDefault(_jsonStringifySafe);
 
-	var _isImmutable = __webpack_require__(562);
+	var _isImmutable = __webpack_require__(563);
 
 	var _isImmutable2 = _interopRequireDefault(_isImmutable);
 
-	var _trackForMutations = __webpack_require__(563);
+	var _trackForMutations = __webpack_require__(564);
 
 	var _trackForMutations2 = _interopRequireDefault(_trackForMutations);
 
@@ -36927,7 +36941,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 561 */
+/* 562 */
 /***/ function(module, exports) {
 
 	exports = module.exports = stringify
@@ -36960,7 +36974,7 @@
 
 
 /***/ },
-/* 562 */
+/* 563 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36977,7 +36991,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 563 */
+/* 564 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -37048,7 +37062,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 564 */
+/* 565 */
 /***/ function(module, exports) {
 
 	'use strict';
