@@ -11,16 +11,12 @@ class SearchPage extends Component {
         super(props)
       }
 
-      handleSearchTextChange(txt) {
-        this.props.loadResults(txt);//<---HERE      
-      }
-
       render() {
         const {results, loading} = this.props;
        
         return (
           <div>
-            <SearchBar onChange={this.handleSearchTextChange.bind(this)}/>
+            <SearchBar onChange={this.props.loadResults}/>
             <ResultsList results={results} loading={loading}/>
           </div>
         );
