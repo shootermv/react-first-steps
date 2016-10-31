@@ -6,22 +6,16 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as searchActions from './actions/actionSearch';
 
-class SearchPage extends Component {
-      constructor(props) {
-        super(props)
-      }
 
-      render() {
-        const {results, loading, loadResults} = this.props;
-       
-        return (
-          <div>
-            <SearchBar onChange={loadResults}/>
-            <ResultsList results={results} loading={loading}/>
-          </div>
-        );
-      }
-};
+let SearchPage = ({results, loading, loadResults}) => {  
+  return (
+    <div>
+      <SearchBar onChange={loadResults}/>
+      <ResultsList results={results} loading={loading}/>
+    </div>
+  );
+}
+
     
 
 function mapStateToProps(state, ownProps) {
