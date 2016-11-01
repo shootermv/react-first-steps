@@ -7,7 +7,6 @@ export default class SearchBar extends Component {
     this.handleKeyUp = this.handleKeyUp.bind(this)
   }
   handleKeyUp (e) {
-    //console.log(e.target.value)
     this.props.onChange(e.target.value);
   }
   render () {
