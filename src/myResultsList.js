@@ -1,19 +1,24 @@
     //Search Bar
 import React, { Component, PropTypes } from 'react';
-import {Link} from 'react-router';
-
+import {connect} from 'react-redux';
+import List from './List'
+import Loading from './Loading'
+import NoItems from './NoItems'
 let ResultsList = ({results, loading}) => {
         
-      let createItem = function(repo, idx) {
-        return <li key={idx}><Link to={`/repo/${repo.owner.login}/${repo.name}`}>{repo.name}</Link></li>;
-      };
-      let list;
-      if(results && !loading) {
-        list = results.length==0  ? 'no items yet' : results.map(createItem);
-      } else {
-        list = <div className="loader">Loading...</div>;
-      }
-      return <ul className="results">{list}</ul>;
+      return (<div>
+        <Loading loading={loading}/>
+        <List results={results}/>
+        <NoItems results={results} loading={loading}/>
+      </div>);
              
 }
-export default ResultsList;
+
+function mapStateToProps(state, ownProps) {
+  return {
+    results: state.results,
+    loading: state.loading
+  };
+}
+
+export default connect(mapStateToProps, {})(ResultsList);

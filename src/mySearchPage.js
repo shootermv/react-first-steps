@@ -11,7 +11,7 @@ let SearchPage = ({results, loading, loadResults}) => {
   return (
     <div>
       <SearchBar onChange={loadResults}/>
-      <ResultsList results={results} loading={loading}/>
+      <ResultsList />
     </div>
   );
 }
