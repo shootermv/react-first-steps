@@ -1,0 +1,9 @@
+body{
+   display:flex;
+}
+.app {
+  text-align: center;
+  div{
+      flex:1;
+  }
+}

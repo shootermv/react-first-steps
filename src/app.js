@@ -6,9 +6,10 @@ import {Provider} from 'react-redux';
 import SearchPage from './mySearchPage';
 import myRepo from './myRepo';
 import configureStore from './store/configureStore';
-
+import styles from './sss.css'
 const store = configureStore();
 render(
+  <div className={styles.app}>
   <Provider store={store}>
        <Router history={hashHistory}> 
          <h1>Search:</h1>
@@ -16,6 +17,7 @@ render(
          <Route path="repo/:owner/:repo" component={myRepo} />
        </Router>
   </Provider>
+  </div>
  ,
   document.getElementById('example')
 )

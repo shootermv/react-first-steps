@@ -5,11 +5,11 @@ import ResultsList from './myResultsList';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as searchActions from './actions/actionSearch';
-
+import styles from './searchPage.css';
 
 let SearchPage = ({results, loading, loadResults}) => {  
   return (
-    <div>
+    <div  className={styles.app} >
       <SearchBar onChange={loadResults}/>
       <ResultsList />
     </div>
