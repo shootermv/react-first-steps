@@ -1,7 +1,7 @@
    
 import React, { Component, PropTypes } from 'react'
 
-let myRepo = ({params:{owner}, params:{repo}}) => {
+let myRepo = ({params:{owner, repo}}) => {
  return (
     <ul>
         <li><strong>owner</strong>:{owner}</li>
